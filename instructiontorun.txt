@@ -1,0 +1,4 @@
+1> Run instance A of server by doing ./serv 8080
+2> Run instance B of server by doing ./serv 8081
+3> Run instances of client by doing ./cli
+
