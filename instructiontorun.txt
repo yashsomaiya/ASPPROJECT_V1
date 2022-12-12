@@ -1,4 +1,9 @@
+Before running anything set PortNumber.txt to 8080 and count.txt to 0
+
 1> Run instance A of server by doing ./serv 8080
 2> Run instance B of server by doing ./serv 8081
 3> Run instances of client by doing ./cli
+4> Send command from client, send quit when ready to quit
+
+
 

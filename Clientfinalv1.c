@@ -5,10 +5,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-
 #define MAX_LENGTH 1000000
-
-
 // Function to read the port number from a text file
 int read_port_from_file(const char *file_name)
 {
@@ -27,7 +24,6 @@ int read_port_from_file(const char *file_name)
         fprintf(stderr, "Error reading port from file\n");
         return -1;
     }
-
     // Close the file
     fclose(fp);
 
@@ -70,6 +66,7 @@ int connect_to_socket(int port)
     return sockfd;
 }
 
+
 void main()
 {
     int n;
@@ -100,12 +97,11 @@ void main()
             // send commands to the server using space" " to seperate arguments
             write(sockfd, buffer,strlen(buffer) + 1);
             // user types 'quit' to close the connection
-            /* if (!strcasecmp(buffer, "quit\n")) {
-                close(server);
-                //kill(getppid(), SIGTERM);
-                //exit(0);
-            } */
-            // printf("waiting for server...\n");
+             if (!strcasecmp(buffer, "quit\n")) {
+                close(sockfd);
+                exit(0);
+            } 
+            printf("waiting for server...\n");
             do
             {
                 if (n = read(sockfd, buffer, MAX_LENGTH))
