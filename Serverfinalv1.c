@@ -56,17 +56,17 @@ int run(char *buff, int length)
 {
 
     int exitStatus = -1;
-
     // child Process
     if (fork() == 0)
     {
         // check if command is Valid
         system(buff);
-        //fprintf(stderr, "Invalid Command detected!\n");
         exit(1);
     }
     else
-    {
+
+    { 
+        //fprintf(stderr, "Invalid Command detected!\n");
         wait(&exitStatus);
     }
 }

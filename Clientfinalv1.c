@@ -31,6 +31,46 @@ int read_port_from_file(const char *file_name)
     return port;
 }
 
+int read_from_count_file(const char *file_name)
+{
+    // Open the file in read-only mode
+    FILE *fp = fopen(file_name, "r");
+    if (fp == NULL)
+    {
+        perror("Error opening file");
+        return -1;
+    }
+
+    // Read the count number from the file
+    int count;
+    if (fscanf(fp, "%d", &count) != 1)
+    {
+        fprintf(stderr, "Error reading count from file\n");
+        return -1;
+    }
+    // Close the file
+    fclose(fp);
+
+    // Return the port number
+    return count;
+}
+
+void write_port_to_file(const char *file_name, int port_count)
+{
+    // Open the file in write-only mode
+    FILE *fp = fopen(file_name, "w");
+    if (fp == NULL)
+    {
+        perror("Error opening file");
+        return;
+    }
+
+    // Write the port number to the file
+    fprintf(fp, "%d", port_count);
+
+    // Close the file
+    fclose(fp);
+}
 // Function to connect to a socket on the given port
 int connect_to_socket(int port)
 {
@@ -98,6 +138,9 @@ void main()
             write(sockfd, buffer,strlen(buffer) + 1);
             // user types 'quit' to close the connection
              if (!strcasecmp(buffer, "quit\n")) {
+                int count= read_from_count_file("count.txt");
+                count--;
+                write_port_to_file("count.txt",count);
                 close(sockfd);
                 exit(0);
             } 
